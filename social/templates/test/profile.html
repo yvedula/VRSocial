@@ -1,0 +1,177 @@
+{% load static %}
+<html>
+  <head>
+    <title>Text</title>
+    <meta name="description" content="Text - A-Frame">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+   <div class="container">
+             
+  <img src={% static "social/images/image.jpg" %} class="img-thumbnail" alt="Cinque Terre" width="60" height="60" align="left"> <h2>Batman</h2>
+  The Dark Knight
+  </div>
+
+    <a-scene id="scene" onkeypress="myFunction()">
+      
+      <!-- Spacing. -->
+      
+      <a-camera id="cam" position="0 0 2">
+        <a-cursor color="#FF0000" />
+      </a-camera>
+
+     <a-assets>
+        <img id="bm-arkham" src={% static "social/images/batman-arkham.jpg" %}/>
+        <img id="bruce-wayne" src={% static "social/images/bruce-wayne.png" %}/>
+        <img id="fun-times" src="{% static "social/images/fun.jpg" %}"/>
+      </a-assets>
+
+      <a-image id= "img1" src="#bm-arkham" position="-2 1.6 0"></a-image>
+      <a-entity id="text11" position="-2 1 0"
+                text="width: 2; color: white; align: center; value: Batman">
+      </a-entity>
+
+      <a-entity id="text12" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="-2 1 0" material="color: #fff"
+                text="width: 2; color: black; align: center; value: The Dark Knight">
+      </a-entity>
+
+      <a-image id= "img2" src="#bruce-wayne" position="-2.2 1.6 -1.5" opacity="0.7"></a-image>
+      <a-entity id="text21" position="-2.2 1 -1.5" visible="false"
+                text="width: 2; color: white; align: center; value: Bruce Wayne">
+      </a-entity>
+
+      <a-entity id="text22" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="-2.2 1 -1.5" material="color: #fff"
+                text="width: 2; color: black; align: center; value: Never met this guy">
+      </a-entity>
+
+
+      <a-image id= "img3" src="#fun-times" position="-2.4 1.6 -3" opacity="0.5"></a-image>
+      <a-entity id="text31" position="-2.4 1 -3" visible="false"
+                text="width: 2; color: white; align: center; value: Fun times">
+      </a-entity>
+
+      <a-entity id="text32" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="-2.4 1 -3" material="color: #fff"
+                text="width: 2; color: black; align: center; value: With the gang!">
+      </a-entity>
+
+      
+      <a-sky color="#777"></a-sky>
+     
+    </a-scene>
+
+    <script>
+      var img1 = document.querySelector('#img1');
+      var text11 = document.querySelector('#text11');
+      var text12 = document.querySelector('#text12');
+      var img2 = document.querySelector('#img2');
+      var text21 = document.querySelector('#text21');
+      var text22 = document.querySelector('#text22');
+      var img3 = document.querySelector('#img3');
+      var text31 = document.querySelector('#text31');
+      var text32 = document.querySelector('#text32');
+      var threshold1 = 0.9;
+      var threshold2 = 0;
+      var cam = document.querySelector("#cam");
+      
+
+    
+window.setInterval(function(){
+  /// call your function here
+  var cam_x = cam.getAttribute("position").x;
+      var cam_y = cam.getAttribute("position").y;
+      var cam_z = cam.getAttribute("position").z;
+  //alert(cam_x+" , "+cam_y);
+
+
+  if(cam_z < threshold1 && cam_z > threshold2) {
+    img1.setAttribute("visible", "false");
+    text11.setAttribute("visible", "false");
+    text12.setAttribute("visible", "false");
+    text31.setAttribute("visible", "false");
+    text32.setAttribute("visible", "false");
+    img2.setAttribute("visible", "true");
+    img2.setAttribute("opacity", "1");
+    img3.setAttribute("opacity", "0.7");
+    
+    text21.setAttribute("visible", "true");
+      img2.addEventListener("mouseenter", function() {
+         text21.setAttribute("visible", "false");
+         text22.setAttribute("visible", "true");
+        });
+
+      
+         img2.addEventListener("mouseleave", function() {
+         text21.setAttribute("visible", "true");
+         text22.setAttribute("visible", "false");
+        });
+       
+  }
+
+  if(cam_z < threshold2) {
+    img2.setAttribute("visible", "false");
+    text21.setAttribute("visible", "false");
+    text22.setAttribute("visible", "false");
+    img3.setAttribute("opacity", "1");
+    
+    text31.setAttribute("visible", "true");
+      img3.addEventListener("mouseenter", function() {
+         text31.setAttribute("visible", "false");
+         text32.setAttribute("visible", "true");
+        });
+
+      
+         img3.addEventListener("mouseleave", function() {
+         text31.setAttribute("visible", "true");
+         text32.setAttribute("visible", "false");
+        });
+       
+  }
+
+  if(cam_z > threshold1) {
+    img1.setAttribute("visible", "true");
+    img2.setAttribute("opacity", "0.7");
+    img3.setAttribute("opacity", "0.5");
+    text21.setAttribute("visible", "false");
+    text11.setAttribute("visible", "true");
+
+         img1.addEventListener("mouseenter", function() {
+         text11.setAttribute("visible", "false");
+         text12.setAttribute("visible", "true");
+        });
+
+      
+         img1.addEventListener("mouseleave", function() {
+         text11.setAttribute("visible", "true");
+         text12.setAttribute("visible", "false");
+        });
+
+  }
+
+  if(cam_z < threshold){
+
+  }
+
+}, 100);
+
+// event.type must be keypress
+function getChar(event) {
+  if (event.which == null) {
+    return String.fromCharCode(event.keyCode) // IE
+  } else if (event.which!=0 && event.charCode!=0) {
+    return String.fromCharCode(event.which)   // the rest
+  } else {
+    return null // special key
+  }
+}
+
+
+
+    </script>
+  </body>
+</html>

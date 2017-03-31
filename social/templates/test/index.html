@@ -1,0 +1,111 @@
+{% load static %}
+<html>
+  <head>
+    <title>Text</title>
+    <meta name="description" content="Text - A-Frame">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      
+      <!-- Spacing. -->
+      
+      <a-camera position="0 0 2">
+        <a-cursor color="#FF0000" />
+      </a-camera>
+
+     <a-assets>
+        <img id="my-image" src={% static "social/images/image.jpg" %}/>
+        <img id="my-image2" src={% static "social/images/image2.jpg" %}/>
+        <img id="my-image3" src={% static "social/images/greenlantern.png" %}/>
+      </a-assets>
+
+      <a-image id= "img1" src="#my-image" position="0 1.6 0"></a-image>
+      <a-entity id="text11" position="0 1 0"
+                text="width: 2; color: black; align: center; value: Batman">
+      </a-entity>
+
+      <a-entity id="text12" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="0 1 0" material="color: #fff"
+                text="width: 2; color: black; align: center; value: The Dark Knight">
+      </a-entity>
+
+
+       <a-image id= "img2" src="#my-image2" position="2 1.6 -0.3"></a-image>
+      <a-entity id="text21" position="2 1 -0.3"
+                text="width: 2; color: black; align: center; value: Superman">
+      </a-entity>
+
+      <a-entity id="text22" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="2 1 -0.3" material="color: #fff"
+                text="width: 2; color: black; align: center; value: The Man of Steel">
+      </a-entity>
+
+
+      <a-image id= "img3" src="#my-image3" position="-2 1.6 -0.3"></a-image>
+      <a-entity id="text31" position="-2 1 -0.3"
+                text="width: 2; color: black; align: center; value: Green Lantern">
+      </a-entity>
+
+      <a-entity id="text32" geometry="primitive: plane; width: auto; height: auto" visible= "false" position="-2 1 -0.3" material="color: #fff"
+                text="width: 2; color: black; align: center; value: Protector of the Universe">
+      </a-entity>
+
+      <a-sky color="#777"></a-sky>
+      <a-entity position="0 1.8 2">
+        <a-entity camera look-controls wasd-controls></a-entity>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      var img1 = document.querySelector('#img1');
+      var text11 = document.querySelector('#text11');
+      var text12 = document.querySelector('#text12');
+     
+      img1.addEventListener("mouseenter", function() {
+         text11.setAttribute("visible", "false");
+         text12.setAttribute("visible", "true");
+});
+
+      img1.addEventListener("mouseleave", function() {
+         text11.setAttribute("visible", "true");
+         text12.setAttribute("visible", "false");
+});
+
+      img1.addEventListener("click", function() {
+         window.location = "profile";
+});
+      
+
+var img2 = document.querySelector('#img2');
+      var text21 = document.querySelector('#text21');
+      var text22 = document.querySelector('#text22');
+     
+      img2.addEventListener("mouseenter", function() {
+         text21.setAttribute("visible", "false");
+         text22.setAttribute("visible", "true");
+});
+
+      img2.addEventListener("mouseleave", function() {
+         text21.setAttribute("visible", "true");
+         text22.setAttribute("visible", "false");
+});
+
+      var img3 = document.querySelector('#img3');
+      var text31 = document.querySelector('#text31');
+      var text32 = document.querySelector('#text32');
+     
+      img3.addEventListener("mouseenter", function() {
+         text31.setAttribute("visible", "false");
+         text32.setAttribute("visible", "true");
+});
+
+      img3.addEventListener("mouseleave", function() {
+         text31.setAttribute("visible", "true");
+         text32.setAttribute("visible", "false");
+});
+
+
+
+    </script>
+  </body>
+</html>
